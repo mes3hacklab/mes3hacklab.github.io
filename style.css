@@ -59,7 +59,3 @@ a {
 	color: black;
 }
 
-#mail a:hover:after{
-	content: "asm";
-	color: rgba(0,0,0,0.1);
-}
