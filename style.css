@@ -1,36 +1,42 @@
 #main {
-	width : 50%;
+	width : 80%;
 	margin-left : auto;
 	margin-right : auto;
+
+}
+
+marquee {
+    font-size: 30px;
+    width: 80%;
 }
 
 
 h1,h2,h3 {
-	font-family : Helvetica, Arial, sans-serif;
+	font-family : monospace, sans-serif;
 }
 
 h2{
 	text-decoration: underline;
 }
 
+
 body {
 	background-image : url("logo.svg");
 	background-repeat : no-repeat; 
-	background-position : center center;
-	background-attachment : fixed;
+	background-position: top right;
+	background-attachment : scroll;
 	font-size : 100%;
+    background-color: black;
+    color: #0f0;
 }
 
 
 #menu>a {
 	display : inline;
 	padding: 1%;
-	border-color: black;
-	border-radius: 3px;
-	color: black;
+	color: #0f0;
 	text-decoration: none;
 	border-width: 1px;
-	background-color: white;
 }
 
 .content{
@@ -42,16 +48,17 @@ li {
 }
 
 #menu {
+    
 	border-width : 1px;
-	padding : 1% 1%;
-	background-color: white;
-	border-radius: 3px;
-	color: black;
-	box-shadow: 3px 3px 6px 2px #333333;
+  	border: solid 1px #0f0;
+	color: #0f0;
+    width: 70%;
+    text-align: center;
+    padding: 1%;
 }
 
-a {
-	color : 5f0000;
+#menu #leng {
+    color: white;
 }
 
 #mail a{
