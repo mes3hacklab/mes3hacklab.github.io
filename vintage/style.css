@@ -1,0 +1,68 @@
+#main {
+	width : 80%;
+	margin-left : auto;
+	margin-right : auto;
+
+}
+
+marquee {
+    font-size: 30px;
+    width: 80%;
+}
+
+
+h1,h2,h3 {
+	font-family : monospace, sans-serif;
+}
+
+h2{
+	text-decoration: underline;
+}
+
+
+body {
+	background-image : url("logo.svg");
+	background-repeat : no-repeat; 
+	background-position: top right;
+	background-attachment : scroll;
+	font-size : 100%;
+    background-color: black;
+    color: #0f0;
+}
+
+
+#menu>a {
+	display : inline;
+	padding: 1%;
+	color: #0f0;
+	text-decoration: none;
+	border-width: 1px;
+}
+
+.content{
+	background-color: transparent;
+}
+
+li {
+	margin-top: 3%;
+}
+
+#menu {
+    
+	border-width : 1px;
+  	border: solid 1px #0f0;
+	color: #0f0;
+    width: 70%;
+    text-align: center;
+    padding: 1%;
+}
+
+#menu #leng {
+    color: white;
+}
+
+#mail a{
+	text-decoration: none;
+	color: black;
+}
+
