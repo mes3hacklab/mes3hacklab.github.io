@@ -51,21 +51,19 @@
     list-style:none;
     margin-bottom:25px;
 }
+
 .gallery img {
     cursor: pointer;
-    width: 250px;
-    height: auto;
+	  display: block;
+	  max-width: 100%;
+	  height: auto !important;
+	  width: auto\9;
+
 }
 
-.controls{          
-    width:50px;
-    display:block;
-    font-size:11px;
-    padding-top:8px;
-    font-weight:bold;          
-}
-.next {
-    float:right;
-    text-align:right;
+.crop {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
 }
 

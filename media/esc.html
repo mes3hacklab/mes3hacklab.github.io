@@ -4,28 +4,14 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>mes3hacklab.org</title>
         <meta name="description" content="mes3hacklab.org">
         <link rel="stylesheet" href="../css/bootstrap.css">
         <link rel="stylesheet" href="../css/mystyle.css">
         <script src="../js/jquery.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-        <script>
-           $(document).ready(function(){
-               $('li img').on('click',function(){
-                    var src = $(this).attr('src');
-                    var img = '<img src="' + src + '" class="img-responsive"/>';
-                    $('#myModal').modal();
-                    $('#myModal').on('shown.bs.modal', function(){
-                        $('#myModal .modal-body').html(img);
-                    });
-                    $('#myModal').on('hidden.bs.modal', function(){
-                        $('#myModal .modal-body').html('');
-                    });
-               });  
-            })
-        </script>
-        
+
     </head>
     <body>
         
@@ -39,7 +25,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">mes3hacklab</a>
+              <a class="navbar-brand" href="index.html">mes3hacklab</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -78,9 +64,9 @@
                       ESC <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                      <li><a href="#esc2012">2012</a></li>
-                      <li><a href="#esc2013">2013</a></li>
-                      <li><a href="#esc2014">2014</a></li>
+                      <li><a class="thumbnail" href="#esc2012">2012</a></li>
+                      <li><a class="thumbnail" href="#esc2013">2013</a></li>
+                      <li><a class="thumbnail" href="#esc2014">2014</a></li>
                     </ul>
                   </li>
                   <li><a href="hackmeeting.html">Hackmeeting</a></li>             
@@ -110,14 +96,6 @@
         </div>
     
         <div class="container">
-           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">         
-                  <div class="modal-body">                
-                  </div>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
             
             <div class="page-header">
               <h1>Gallery<small> ESC 2K13</small></h1>
@@ -125,79 +103,6 @@
              <ul class="row gallery">
              </ul>
         </div>
-    
-<!--GALLERY SCRIPT-->
-    
-<script>
-        $(document).ready(function(){        
-            $('li img').on('click',function(){
-                var src = $(this).attr('src');
-                var img = '<img src="' + src + '" class="img-responsive"/>';
-                
-                //start of new code new code
-                var index = $(this).parent('li').index();   
-                
-                var html = '';
-                html += img;                
-                html += '<div style="height:25px;clear:both;display:block;">';
-                html += '<a class="controls next" href="'+ (index+2) + '">next &raquo;</a>';
-                html += '<a class="controls previous" href="' + (index) + '">&laquo; prev</a>';
-                html += '</div>';
-                
-                $('#myModal').modal();
-                $('#myModal').on('shown.bs.modal', function(){
-                    $('#myModal .modal-body').html(html);
-                    //new code
-                    $('a.controls').trigger('click');
-                })
-                $('#myModal').on('hidden.bs.modal', function(){
-                    $('#myModal .modal-body').html('');
-                });
-                
-                
-                
-                
-           });
-        
-        })
-        
-        //new code
-        $(document).on('click', 'a.controls', function(){
-            var index = $(this).attr('href');
-            var src = $('ul.row li:nth-child('+ index +') img').attr('src');             
-            
-            $('.modal-body img').attr('src', src);
-            
-            var newPrevIndex = parseInt(index) - 1; 
-            var newNextIndex = parseInt(newPrevIndex) + 2; 
-            
-            if($(this).hasClass('previous')){               
-                $(this).attr('href', newPrevIndex); 
-                $('a.next').attr('href', newNextIndex);
-            }else{
-                $(this).attr('href', newNextIndex); 
-                $('a.previous').attr('href', newPrevIndex);
-            }
-            
-            var total = $('ul.row li').length + 1; 
-            //hide next button
-            if(total === newNextIndex){
-                $('a.next').hide();
-            }else{
-                $('a.next').show()
-            }            
-            //hide previous button
-            if(newPrevIndex === 0){
-                $('a.previous').hide();
-            }else{
-                $('a.previous').show()
-            }
-            
-            
-            return false;
-        });
-</script>    
-<!--/GALLERY SCRIPT-->
-    
+
     </body>
 </html>
