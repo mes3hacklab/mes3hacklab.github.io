@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>mes3hacklab</title><link href="/" rel="alternate"></link><link href="/feeds/tricks.atom.xml" rel="self"></link><id>/</id><updated>2015-02-06T20:41:00+01:00</updated><entry><title>Ridimensionamenti rapidi per Openbox</title><link href="/ridimensionamenti-rapidi-per-openbox.html" rel="alternate"></link><updated>2015-02-06T20:41:00+01:00</updated><author><name>m</name></author><id>tag:,2015-02-06:ridimensionamenti-rapidi-per-openbox.html</id><summary type="html">&lt;p&gt;Openbox è un Windows Manager per sistemi Linux utilizzato dall'ambiente desktop LXDE. Inoltre, essendo
+semplice nella configurazione delle associazioni di tasti (keybinding), hanno pure pensato di basarci la
+distribuzione Linux CrunchBang (#!), ma non siamo qui per questo!
+&lt;br&gt;&lt;br&gt;
+In soldoni le associazioni di tasti di Openbox possono essere facilmente aggiunte e modificate attraverso
+il file &lt;code&gt;rc.xml&lt;/code&gt;.
+In LXDE e in Lubuntu il file si chiama rispettivamente: &lt;code&gt;lxde_rc.xml&lt;/code&gt; e &lt;code&gt;lubuntu_rc.xml&lt;/code&gt; e dovrebbe trovarsi
+all'interno di &lt;code&gt;~/.config/openbox/&lt;/code&gt;&lt;/p&gt;
+&lt;h3&gt;Detto questo, vediamo ora un semplice metodo per ridimensionare le finestre di Openbox!&lt;/h3&gt;
+&lt;p&gt;Aprite il file &lt;code&gt;rc.xml&lt;/code&gt; con il vostro editor di testo, e aggiungete i seguenti tags immediatamente prima del commento:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;!-- Keybindings for running applications --&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Definiamo il keybind (in questo caso tasto Windows e freccia Sinistra):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;lt;keybind key=&amp;quot;W-Left&amp;quot;&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Con la prima azione richiediamo di non massimizzare la finestra:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;lt;action name=&amp;quot;UnmaximizeFull&amp;quot;/&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Ora dimezziamo la grandezza della finestra:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MoveResizeTo&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;width&amp;gt;&lt;/span&gt;50%&lt;span class="nt"&gt;&amp;lt;/width&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Massimizziamo verticalmente:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;lt;action name=&amp;quot;MaximizeVert&amp;quot;/&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Specificiamo la posizione:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MoveResizeTo&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;x&amp;gt;&lt;/span&gt;0&lt;span class="nt"&gt;&amp;lt;/x&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;y&amp;gt;&lt;/span&gt;0&lt;span class="nt"&gt;&amp;lt;/y&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Chiudiamo il tag del keybind:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&amp;lt;/keybind&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Questo dovrebbe essere in soldoni il nostro risultato:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;keybind&lt;/span&gt; &lt;span class="na"&gt;key=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;W-Left&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;  
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;UnmaximizeFull&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MoveResizeTo&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;width&amp;gt;&lt;/span&gt;50%&lt;span class="nt"&gt;&amp;lt;/width&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MaximizeVert&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MoveResizeTo&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;x&amp;gt;&lt;/span&gt;0&lt;span class="nt"&gt;&amp;lt;/x&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;y&amp;gt;&lt;/span&gt;0&lt;span class="nt"&gt;&amp;lt;/y&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/keybind&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h3&gt;Fatto! E ora?&lt;/h3&gt;
+&lt;p&gt;Vi propongo un esempio di associazioni di tasti, naturalmente potete fare di meglio!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;&amp;lt;!-- Vertical resize --&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;keybind&lt;/span&gt; &lt;span class="na"&gt;key=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;W-Left&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;  
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;UnmaximizeFull&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MoveResizeTo&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;width&amp;gt;&lt;/span&gt;50%&lt;span class="nt"&gt;&amp;lt;/width&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MaximizeVert&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MoveResizeTo&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;x&amp;gt;&lt;/span&gt;0&lt;span class="nt"&gt;&amp;lt;/x&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;y&amp;gt;&lt;/span&gt;0&lt;span class="nt"&gt;&amp;lt;/y&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/keybind&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;keybind&lt;/span&gt; &lt;span class="na"&gt;key=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;W-Right&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;UnmaximizeFull&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MoveResizeTo&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;width&amp;gt;&lt;/span&gt;50%&lt;span class="nt"&gt;&amp;lt;/width&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MaximizeVert&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MoveResizeTo&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;x&amp;gt;&lt;/span&gt;50%&lt;span class="nt"&gt;&amp;lt;/x&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;y&amp;gt;&lt;/span&gt;0&lt;span class="nt"&gt;&amp;lt;/y&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/keybind&amp;gt;&lt;/span&gt;
+&lt;span class="c"&gt;&amp;lt;!-- Horizontal resize --&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;keybind&lt;/span&gt; &lt;span class="na"&gt;key=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;W-Up&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;UnmaximizeFull&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MoveResizeTo&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;height&amp;gt;&lt;/span&gt;50%&lt;span class="nt"&gt;&amp;lt;/height&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MaximizeHorz&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MoveResizeTo&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;x&amp;gt;&lt;/span&gt;0&lt;span class="nt"&gt;&amp;lt;/x&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;y&amp;gt;&lt;/span&gt;0&lt;span class="nt"&gt;&amp;lt;/y&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/keybind&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;keybind&lt;/span&gt; &lt;span class="na"&gt;key=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;W-Down&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;UnmaximizeFull&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MoveResizeTo&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;height&amp;gt;&lt;/span&gt;50%&lt;span class="nt"&gt;&amp;lt;/height&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MaximizeHorz&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;action&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MoveResizeTo&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;x&amp;gt;&lt;/span&gt;0&lt;span class="nt"&gt;&amp;lt;/x&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;y&amp;gt;&lt;/span&gt;50%&lt;span class="nt"&gt;&amp;lt;/y&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/action&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/keybind&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Dopo aver completato di scrivere le vostre configurazioni, salvate il file, aprite un terminale e digitate:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;openbox --reconfigure
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Avete appena chiesto ad openbox di riconfiguarsi con le nuove impostazioni. Facile no?&lt;/p&gt;
+&lt;h2&gt;m&lt;/h2&gt;</summary><category term="openbox"></category><category term="lxde"></category><category term="windows manager"></category></entry></feed>
