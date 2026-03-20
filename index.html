@@ -1,240 +1,87 @@
-<!doctype html>
-<html lang="it">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta
-    name="description"
-    content="mes3hacklab — pagina principale."
-  />
-  <title>mes3hacklab</title>
+<!DOCTYPE html>
+<html>
 
-  <style>
-    :root{
-      --bg:#0b0b0d;
-      --bg2:#070708;
-      --fg:#f2f2f2;
-      --mut:#8e8e8e;
-      --mut2:#6f6f6f;
-      --acid:#b6ff2a;
-      --line:rgba(255,255,255,.12);
-      --shadow:0 0 30px rgba(182,255,42,.10);
-    }
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>mes3hacklab.org</title>
+        <meta name="description" content="mes3hacklab.org">
+        <link rel="stylesheet" href="./css/bootstrap.css">
+        <link rel="stylesheet" href="./css/mystyle.css">
+        <script src="./js/jquery.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="index.html">mes3hacklab</a>
+            </div>
 
-    *{box-sizing:border-box}
-
-    html,body{
-      margin:0;
-      min-height:100%;
-      background:
-        radial-gradient(1200px 700px at 20% -10%, rgba(182,255,42,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg2) 0%, var(--bg) 45%, #050506 100%);
-      color:var(--fg);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    a{color:inherit}
-
-    .mono{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-    }
-
-    .wrap{
-      width:min(1100px, calc(100% - 32px));
-      margin:0 auto;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      padding:16px 0;
-    }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:10px 12px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      background:rgba(0,0,0,.24);
-      backdrop-filter: blur(10px);
-    }
-
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      color:var(--mut);
-      font-size:12px;
-      letter-spacing:.08em;
-    }
-
-    .dot{
-      width:10px;
-      height:10px;
-      border-radius:2px;
-      background:var(--acid);
-      box-shadow:0 0 18px rgba(182,255,42,.35);
-    }
-
-    .archive-link{
-      text-decoration:none;
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      color:var(--mut2);
-      padding:6px 0;
-      opacity:.75;
-      transition:.18s ease;
-    }
-
-    .archive-link:hover{
-      opacity:1;
-      color:var(--mut);
-    }
-
-    main{
-      flex:1;
-      display:grid;
-      place-items:center;
-      padding:28px 0;
-    }
-
-    .hero{
-      width:100%;
-      max-width:760px;
-      position:relative;
-      overflow:hidden;
-      border:1px solid var(--line);
-      border-radius:28px;
-      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
-      padding:48px 28px;
-      box-shadow:var(--shadow);
-      text-align:center;
-    }
-
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        repeating-linear-gradient(90deg, transparent 0 14px, rgba(255,255,255,.02) 14px 15px),
-        repeating-linear-gradient(0deg, transparent 0 18px, rgba(255,255,255,.02) 18px 19px);
-      pointer-events:none;
-      mix-blend-mode:overlay;
-      opacity:.55;
-    }
-
-    h1{
-      margin:0;
-      position:relative;
-      font-size:clamp(34px, 8vw, 84px);
-      line-height:.95;
-      letter-spacing:-.04em;
-    }
-
-    .actions{
-      margin-top:28px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:14px;
-      position:relative;
-    }
-
-    .cta{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:min(100%, 420px);
-      padding:18px 28px;
-      text-decoration:none;
-      border-radius:20px;
-      border:1px solid rgba(182,255,42,.58);
-      background:rgba(182,255,42,.12);
-      box-shadow:
-        0 0 28px rgba(182,255,42,.16),
-        inset 0 0 0 1px rgba(182,255,42,.18);
-      color:var(--fg);
-      font-size:14px;
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:.1em;
-      transition:.18s ease;
-    }
-
-    .cta:hover{
-      transform:translateY(-2px);
-      background:rgba(182,255,42,.18);
-      box-shadow:
-        0 0 34px rgba(182,255,42,.22),
-        inset 0 0 0 1px rgba(182,255,42,.24);
-    }
-
-    .archive-under{
-      text-decoration:none;
-      color:var(--mut2);
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      opacity:.7;
-      transition:.18s ease;
-    }
-
-    .archive-under:hover{
-      opacity:1;
-      color:var(--mut);
-    }
-
-    @media (max-width: 680px){
-      .wrap{
-        width:min(100% - 20px, 1100px);
-        padding:10px 0;
-      }
-
-      .topbar{
-        padding:9px 10px;
-      }
-
-      .hero{
-        padding:34px 18px;
-        border-radius:20px;
-      }
-
-      .cta{
-        width:100%;
-        min-width:0;
-        padding:16px 18px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-
-    <div class="topbar">
-      <div class="tag mono">
-        <span class="dot"></span>
-        mes3hacklab
-      </div>
-
-      <a class="archive-link mono" href="archive/index.html">
-        archivio
-      </a>
-    </div>
-
-    <main>
-      <section class="hero">
-        <h1>28/03</h1>
-
-        <div class="actions">
-          <a class="cta mono" href="https://mhl-micro-conf.ypwn.me">
-            mes3hacklab micro-conference 2026
-          </a>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Home</a></li>
+                  <li><a href="media/esc.html">Media</a></li>
+                  <li><a href="events.html">Events</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href="thedorksideofgoogle.html">The DorkSide of Google</a></li>
+                    <li class="divider"></li>
+                    <li><a href="onionmail.html">Onion Mail</a></li>
+                    <li class="divider"></li>
+                    <li><a href="thescriptkiddieshandbook.html">The ScriptKiddies Handbook</a></li>
+                    <li class="divider"></li>
+                    <li><a href="yodo.html">yodo</a></li>
+                    <li class="divider"></li>
+                    <li><a href="./pa/pa.html">Osservatorio sulla sicurezza del Web nella PA Italiana</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="contacts.html">Contacts</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="en/index.html">EN</a></li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+        
+        <div class="container">
+                    <div class="jumbotron welcome">
+                      <br><br><br><br><br>
+                      <h1>Benvenuto!</h1>
+                      <p>mes3hacklab è uno spazio di aggregazione, un laboratorio dedicato all'informatica di frontiera, alla tecnologia e alla scienza, libero da qualsiasi logica commerciale e di profitto.</p>
+                      <p><a class="btn btn-primary btn-lg" role="button" href="contacts.html">Contatti</a></p>
+                    </div>
+                    <div class="row">
+                      <div class="col-xs-12 col-md-6">
+                          <h3>All'interno:</h3> 
+                          <p>Giovani appassionati possono entrare in contatto gli uni con gli altri attraverso i nostri incontri. Per raggiungere questo obbiettivo teniamo degli incontri aperti a tutti in cui discutere sia del lato tecnico che di quello più astratto dell'informatica.</p>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                          <h3>Ciò che ci lega è la convinzione che:</h3>
+                          <ul>
+                              <li>L'accesso all'informazione debba essere libero e facilmente attuabile tramite l'uso di sistemi aperti e non vincolato alle decisioni di pochi.</li>
+                              <li>Che l'utente sia consapevole di ciò che sta usando.</li>
+                              <li>Che il modo migliore di imparare sia scambiarsi idee e conoscenze, senza strutture gerarchiche ed in perfetto stile p2p.</li>
+                         </ul>
+                      </div>
+                    </div>
+            
         </div>
-      </section>
-    </main>
-
-  </div>
-</body>
+        
+        
+    </body>
 </html>
