@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//ical.marudot.com//iCal Event Maker
+CALSCALE:GREGORIAN
+BEGIN:VTIMEZONE
+TZID:Europe/Brussels
+LAST-MODIFIED:20250410T142247Z
+TZURL:https://www.tzurl.org/zoneinfo-outlook/Europe/Brussels
+X-LIC-LOCATION:Europe/Brussels
+BEGIN:DAYLIGHT
+TZNAME:CEST
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZNAME:CET
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20260302T153603Z
+UID:1772465693002-88849@ical.marudot.com
+DTSTART;TZID=Europe/Brussels:20260328T150000
+DTEND;TZID=Europe/Brussels:20260328T220000
+SUMMARY:mes3hacklab micro-conference 2026
+URL:https://mhl-micro-conf.ypwn.me/
+DESCRIPTION:=========\nCosa portare\n=========\nMail di registrazione\, domande scomode\, contanti per birra e lasagne.\n\n=========\nFormat\n=========\ntalk di 40 min\, 10 min discussione\, 10 min pausa.\n5 talk di hacking\, zero sponsor\, ingresso libero.\n------------\nNota: lo spazio è antifascista.\n\n=========\nLineup talk\n=========\n16:00–16:40 · Epto · Urbex\nLasciate solo impronte\, prendete solo emozioni.\n------------\n17:00–17:40 · savillum aka Vincenzo · Blinding the Watchers\nTecniche di evasione EDR dal 2020 al 2025: unhooking\, direct syscall\, call stack spoofing\, sleep obfuscation\, BYOVD e generazione polimorfica assistita da AI.\n------------\n18:00–18:40 · Michele Pietravalle · Come sopravvivere a un DDOS\n...di 15 giorni e uscire comunque fuori a bere la sera per dimenticare.\n------------\n19:00–19:40 · Rocco Sicilia · Ingresso vietato\nAccesso fisico alla rete come leva d’attacco più efficace rispetto al solo piano digitale\, persistenza interna.\n------------\n22:00 → ? · ShotokanZH · Snado & Cultural Appropriation · 🍕pid\n\n=========\nSpecial show\n=========\nVoltagePyromania · live Tesla Coils\n------------\nPerformance musicale con bobine di Tesla ad alta tensione: fulmini controllati trasformati in melodie\, senza amplificatori tradizionali.\nUnione di scienza\, arte ed elettricità in un’esperienza audiovisiva immersiva.\n\n
+LOCATION:https://maps.app.goo.gl/YayCHa5fcngziF9q8
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:mes3hacklab micro-conference 2026
+TRIGGER:-PT2H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

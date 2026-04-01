@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="mes3hacklab micro-conference 2026 — Mestre (VE) — 28 Marzo — 15:00–22:00" />
+  <title>mes3hacklab // micro-conference 2026</title>
+
+  <style>
+    :root{
+      --bg:#0b0b0d;
+      --fg:#f2f2f2;
+      --mut:#b9b9b9;
+      --acid:#b6ff2a;
+      --warn:#ff3b3b;
+      --line:rgba(255,255,255,.12);
+      --card:rgba(255,255,255,.06);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(182,255,42,.15), transparent 55%),
+        radial-gradient(900px 500px at 90% 10%, rgba(255,59,59,.10), transparent 60%),
+        linear-gradient(180deg, #070708 0%, var(--bg) 45%, #060607 100%);
+      color:var(--fg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height:1.35;
+    }
+    a{color:inherit}
+    .wrap{max-width:980px;margin:0 auto;padding:20px}
+    .topbar{
+      display:flex;gap:10px;align-items:center;justify-content:space-between;
+      border:1px solid var(--line);background:rgba(0,0,0,.25);
+      padding:10px 12px;border-radius:14px;
+      position:sticky;top:10px;backdrop-filter: blur(10px);
+    }
+    .tag{
+      display:inline-flex;align-items:center;gap:8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+      color:var(--mut);
+    }
+    .dot{width:10px;height:10px;border-radius:2px;background:var(--acid);box-shadow:0 0 18px rgba(182,255,42,.35)}
+    .btn{
+      border:1px solid var(--line);background:rgba(255,255,255,.04);
+      padding:8px 10px;border-radius:12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+      text-decoration:none;
+    }
+    .btn:hover{border-color:rgba(182,255,42,.5)}
+    header{padding:24px 0 6px}
+    .hero{
+      border:1px solid var(--line);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius:22px;
+      padding:22px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute;inset:-2px;
+      background:
+        repeating-linear-gradient(90deg, transparent 0 12px, rgba(255,255,255,.02) 12px 13px),
+        repeating-linear-gradient(0deg, transparent 0 18px, rgba(255,255,255,.02) 18px 19px);
+      pointer-events:none;
+      mix-blend-mode:overlay;
+    }
+    .kicker{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--mut);
+      font-size:12px;
+      margin:0 0 10px;
+      position:relative;
+    }
+    h1{
+      margin:0 0 10px;
+	  text-transform:uppercase;
+      font-size:clamp(18px, 3.3vw, 34px);
+      letter-spacing:-.02em;
+      position:relative;
+    }
+    .lines{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--mut);
+      font-size:12px;
+      margin:10px 0 0;
+      position:relative;
+    }
+    .hr{
+      margin:18px 0;
+      height:1px;background:linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+      position:relative;
+    }
+    .meta{
+      display:grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap:14px;
+      position:relative;
+    }
+    @media (max-width:860px){ .meta{grid-template-columns:1fr} }
+    .card{
+      border:1px solid var(--line);
+      background:rgba(0,0,0,.22);
+      border-radius:18px;
+      padding:16px;
+    }
+    .grid3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+    @media (max-width:860px){ .grid3{grid-template-columns:1fr} }
+    .pill{
+      display:flex;flex-direction:column;gap:6px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      border-radius:16px;
+      padding:12px 12px 10px;
+      min-height:74px;
+    }
+    .pill b{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      text-transform:uppercase;letter-spacing:.06em;
+      font-size:12px;color:var(--mut);
+    }
+    .pill span{font-weight:800;text-transform:uppercase}
+    .badges{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:10px
+    }
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid rgba(182,255,42,.35);
+      background:rgba(182,255,42,.08);
+      color:var(--fg);
+      padding:8px 10px;border-radius:999px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      text-transform:uppercase;letter-spacing:.05em;
+      font-size:12px;
+    }
+    .badge .b{width:8px;height:8px;border-radius:2px;background:var(--acid)}
+    .fine{
+      color:var(--mut);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size:12px;
+    }
+    section{margin-top:14px}
+    h2{
+      margin:0 0 10px;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      font-size:14px;
+      color:var(--mut);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+    .speaker{
+      display:flex;gap:12px;align-items:flex-start;
+      padding:12px;border-radius:16px;border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      margin-bottom:10px;
+    }
+	.avatar{
+	  width:42px;
+	  height:42px;
+	  border-radius:12px;
+	  border:1px solid rgba(182,255,42,.35);
+	  flex:0 0 auto;
+	  overflow:hidden;
+	  background:#222;
+	}
+
+	.avatar img{
+	  width:100%;
+	  height:100%;
+	  object-fit:cover;
+	  display:block;
+	  background:#333;
+	}
+    .speaker h3{
+      margin:0;
+      font-size:16px;
+      letter-spacing:.03em;
+    }
+    .speaker .t{
+      margin:4px 0 2px;
+      font-weight:800;
+      text-transform:uppercase;
+    }
+    .speaker .d{margin:0;color:var(--mut);font-size:14px}
+    footer{padding:18px 0 30px}
+    .foot{
+      display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+      border:1px solid var(--line);border-radius:18px;
+      padding:12px 14px;background:rgba(0,0,0,.18);
+    }
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;}
+    .small{font-size:12px;color:var(--mut)}
+
+	.reg{
+	  max-width:760px;
+	  margin:32px auto 0;
+	  padding:24px;
+
+	  display:flex;
+	  flex-direction:column;
+	  gap:14px;
+
+	  border:1px solid var(--line);
+	  border-radius:22px;
+	  background:rgba(0,0,0,.22);
+	}
+
+	.reg input[type="email"]{
+	  background:rgba(0,0,0,.35);
+	  border:1px solid rgb(255 255 255 / 50%);
+	  border-radius:12px;
+	  padding:10px 12px;
+	  color:var(--fg);
+	  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	  text-align:center;
+	}
+
+	.reg input::placeholder{
+	  color: 1px solid rgb(255 255 255 / 50%);
+	  text-transform:uppercase;
+	  letter-spacing:.08em;
+	}
+
+	.reg input:focus{
+	  outline:none;
+	  border-color:rgba(182,255,42,.6);
+	  box-shadow:0 0 18px rgba(182,255,42,.2);
+	}
+
+	.food{
+	  display:flex;
+	  flex-direction:column;
+	  gap:6px;
+	  font-family: ui-monospace, monospace;
+	  font-size:12px;
+	  color:var(--mut);
+	  text-transform:uppercase;
+	  letter-spacing:.06em;
+	}
+
+	.food label{
+	  display:flex;
+	  align-items:center;
+	  gap:8px;
+	  cursor:pointer;
+	}
+
+	.food input[type="radio"]{
+	  accent-color: var(--acid);
+	}
+
+	/* submit button (solo dentro il form) */
+
+	.reg .btn{
+	  display:block;
+	  margin-top:6px;
+	  text-align:center;
+
+	  font-size:14px;
+	  padding:14px 18px;
+
+	  border:1px solid rgba(182,255,42,.6);
+	  background:rgba(182,255,42,.12);
+	  color:var(--fg);
+
+	  border-radius:18px;
+
+	  letter-spacing:.08em;
+	  text-transform:uppercase;
+	  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+	  transition: all .2s ease;
+	}
+
+	.reg .btn:hover{
+	  background:rgba(182,255,42,.18);
+	  box-shadow:
+		0 0 22px rgba(182,255,42,.25),
+		inset 0 0 0 1px rgba(182,255,42,.4);
+	  transform:translateY(-1px);
+	}
+	
+	.reg #code{
+	  background:rgba(0,0,0,.35);
+	  border:1px solid var(--line);
+	  border-radius:10px;
+	  padding:8px 10px;
+
+	  color:var(--fg);
+	  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+	  text-align:center;
+	  letter-spacing:.25em;
+
+	  box-shadow:none;
+	}
+
+	.reg #code::placeholder{
+	  color:#555;
+	  letter-spacing:.12em;
+	  text-transform:uppercase;
+	}
+
+	.reg #code:focus{
+	  outline:none;
+	  border-color:rgba(182,255,42,.6);
+	  box-shadow:0 0 12px rgba(182,255,42,.15);
+	}
+	
+	.cal-btn{
+	  display:inline-flex;
+	  align-items:center;
+	  gap:8px;
+
+	  border:1px solid rgba(182,255,42,.6);
+	  background:rgba(182,255,42,.10);
+	  color:var(--fg);
+
+	  padding:10px 14px;
+	  border-radius:14px;
+
+	  text-decoration:none;
+	  text-transform:uppercase;
+	  letter-spacing:.08em;
+	  font-size:12px;
+
+	  transition:all .2s ease;
+	}
+
+	.cal-btn:hover{
+	  background:rgba(182,255,42,.18);
+	  box-shadow:
+		0 0 18px rgba(182,255,42,.25),
+		inset 0 0 0 1px rgba(182,255,42,.4);
+	  transform:translateY(-1px);
+	}
+
+	.cal-btn i{
+	  font-size:16px;
+	}
+	
+	@media (max-width: 520px){
+
+	  .wrap{
+		padding:12px;
+	  }
+
+	  header{
+		padding:14px 0 4px;
+	  }
+
+	  .hero{
+		padding:14px;
+		border-radius:16px;
+	  }
+
+	  h1{
+		font-size:clamp(16px, 5vw, 24px);
+	  }
+
+	  .card{
+		padding:12px;
+		border-radius:14px;
+	  }
+
+	  .pill{
+		padding:10px;
+		min-height:auto;
+	  }
+
+	  .speaker{
+		padding:10px;
+	  }
+
+	  .reg{
+		padding:16px;
+		margin-top:20px;
+	  }
+
+	  .foot{
+		padding:10px 12px;
+	  }
+
+	  section{
+		margin-top:10px;
+	  }
+	}
+	
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header>
+      <div class="hero">
+        <p class="kicker">mes3hacklab / 2026 /</p>
+		
+        <h1>
+          mes3hacklab micro-conference · 2026
+        </h1>
+
+        <div class="lines">
+		  Ti mancano gli hacker-camp?<br>
+          Hai fatto qualcosa?<br><br>
+		  (...)<br><br>
+          No?<br>
+          Noi sì.
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="meta">
+          <div class="card">
+            <div class="grid3">
+              <div class="pill"><b>location</b><span>TUTTINPIEDI</span><span class="small mono">Mestre (VE)<br>P.tta Canova</span></div>
+              <div class="pill"><b>data</b><span>28 Marzo</span><span class="small mono">Sabato<br>2026</span></div>
+              <div class="pill"><b>orario</b><span>15:00 → 22:00</span><span class="small mono">+ pause<br> + lasagne benefit</span></div>
+            </div>
+
+            <div class="badges">
+              <div class="badge"><span class="b"></span> 6 talk</div>
+              <div class="badge"><span class="b"></span> zero sponsor</div>
+              <div class="badge"><span class="b"></span> ingresso libero</div>
+            </div>
+			
+          </div>
+
+          <div class="card">
+            <h2>info</h2>
+            <p class="mono small" style="margin:0 0 10px">
+              Formato: talk di 40 min, 10 min di discussione, 10 minuti di pausa.
+            </p>
+            <p class="mono small" style="margin:0 0 10px">
+              Porta: domande scomode, contanti per birra e lasagne.
+            </p>
+            <p class="mono small" style="margin:0">
+              <span style="color:var(--acid)">Nota:</span> lo spazio è antifascista.
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+	
+	<form id="regForm" class="reg">
+	  <h2>Registrati all'evento</h2>
+	  <input
+		type="email"
+		name="email"
+		placeholder="la tua email"
+		required
+	  />
+	  
+	  <div class="food">
+
+		<div class="mono small" style="margin-bottom:6px">
+		  Questo form serve solo a stimare le presenze.<br>
+		  Se prenoti da mangiare e poi non vieni, qualcuno lavorerà per niente. Quindi sii responsabile.
+		</div>
+
+		<label>
+		  <input type="radio" name="dinner" value="yes" required>
+		  Sì, ceno con voi (Lasagne classiche o vegan, contributo sul posto 5€)
+		</label>
+
+		<label>
+		  <input type="radio" name="dinner" value="no">
+		  No, mi arrangio
+		</label>
+
+	  </div>
+	  
+	  <input
+		  id="code"
+		  type="text"
+		  inputmode="numeric"
+		  pattern="\d{6}"
+		  maxlength="6"
+		  placeholder="inserisci codice"
+		  style="display:none"
+	  />
+
+	  <button type="submit" class="btn">
+		verifica email
+	  </button>
+
+	  <div id="regMsg" class="mono small" style="text-align:center;margin-top:8px"></div>
+	</form>
+	
+    <section id="relatori">
+      <h2>relatori // lineup</h2>
+	  
+      <div class="speaker">
+        <div class="avatar"><img src="img/urbex.png"></div>
+        <div>
+          <h3>Epto · 16:00 → 16:40</h3>
+          <div class="t">Smart City</div>
+          <p class="d">Grande Fratello o nuovo livello della mania di controllo digitale? Come l'innovazione trasforma i nostri smartphone in cavalli di troia.</p>
+        </div>
+      </div>
+
+      <div class="speaker">
+        <div class="avatar"><img src="img/edr.png"></div>
+        <div>
+          <h3>savillum aka Vincenzo · 17:00 → 17:40</h3>
+          <div class="t">Blinding the Watchers: Tecniche di Evasione degli EDR dal 2020 al 2025</div>
+          <p class="d"><br>Le soluzioni EDR sono diventate il pilastro della difesa endpoint, ma negli ultimi cinque anni le tecniche per aggirarle si sono evolute radicalmente. Il talk offre una vista del panorama di evasione EDR dal 2020 al 2025: dall'unhooking e i direct syscall delle origini, fino alle tecniche più recenti come il call stack spoofing, la sleep obfuscation, il BYOVD e la generazione polimorfica assistita da AI.</p>
+        </div>
+      </div>
+	  
+      <div class="speaker">
+        <div class="avatar"><img src="img/ddos.png"></div>
+        <div>
+          <h3>Michele Pietravalle · 18:00 → 18:40</h3>
+          <div class="t">Come sopravvivere a un DDOS</div>
+          <p class="d">...di 15 giorni e uscire comunque fuori a bere la sera per dimenticare.</p>
+        </div>
+      </div>
+
+      <div class="speaker">
+        <div class="avatar"><img src="img/fisico.png"></div>
+        <div>
+          <h3>Rocco Sicilia · 19:00 → 19:40</h3>
+          <div class="t">Ingresso vietato</div>
+          <p class="d">Per alcune tipologie di organizzazioni esiste un forte squilibrio tra la probabilità di successo di un attacco informatico condotto esclusivamente sul piano digitale e quella di un attacco che preveda l’accesso fisico alla rete aziendale. In molti casi, partire da un qualsiasi punto interno della rete consente di aggirare numerosi controlli di sicurezza implementati dall’organizzazione e di ottenere una posizione persistente con uno sforzo relativamente ridotto rispetto a quanto richiesto da un attacco condotto unicamente da remoto.</p>
+        </div>
+      </div>
+
+      <div class="speaker">
+        <div class="avatar"><img src="img/snado.png"></div>
+        <div>
+          <h3>ShotokanZH · 22:00 → ?</h3>
+          <div class="t">Snado & Cultural Appropriation</div>
+          <p class="d">🍕pid</p>
+        </div>
+      </div>
+      
+      <div class="speaker">
+        <div class="avatar"><img src="img/city.png"></div>
+        <div>
+          <h3>Epto · 22:00 → ?</h3>
+          <div class="t">Urbex</div>
+          <p class="d">Lasciate solo impronte prendete solo emozioni.</p>
+        </div>
+      </div>
+	  
+    </section>
+
+	<section>
+	  <h2>special // show</h2>
+
+	  <div class="speaker">
+		<div class="avatar"><img src="img/tesla.png"></div>
+		<div>
+		  <h3>VoltagePyromania · 20:00 → 22:00</h3>
+		  <div class="t">live tesla coils</div>
+
+		  <p class="d"><br>
+			VoltagePyromania è un affascinante progetto musicale che utilizza Tesla Coils per creare melodie attraverso spettacolari scariche elettriche ad alta tensione. Questa forma d'arte unica trasforma l'elettricità in ritmi e note, senza ricorrere a tradizionali amplificatori o altoparlanti. Una sinfonia di fulmini controllati che unisce scienza e arte in un'esperienza audiovisiva elettrizzante che stupisce e incanta il pubblico.
+			<br><br>
+			Michele Pietravalle costruisce Tesla Coil dall’età di 15 anni e, dopo oltre 25 anni di passione e sperimentazione, ha portato le sue bobine a livelli sempre più evoluti in termini di tipologia e potenza. La sua ricerca lo ha condotto a dar vita a VoltagePyromania, un progetto musicale e scenico che unisce fulmini ed elementi di fuoco in un’esperienza artistica unica e immersiva.
+		  </p>
+		</div>
+	  </div>
+	</section>
+
+      <p class="mono small" style="margin-top:12px;color:var(--mut)">
+        Ultimo aggiornamento: <span id="lastUpdated">—</span>
+      </p>
+
+    <footer>
+      <div class="foot">
+        <div>
+          <div class="mono">mes3hacklab // micro-conference 2026</div>
+          <div class="small mono">Mestre · 28/03 · 15:00–22:00 · P.tta Canova</div>
+        </div>
+
+		<a href="mhl-mc-2026.ics"
+		   download
+		   class="cal-btn mono">
+
+		  <img src="img/calendar.svg" alt="" class="cal-icon">
+		  salva evento (.ics)
+
+		</a>
+      </div>
+    </footer>
+  </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", ()=>{
+
+  const form = document.getElementById("regForm");
+  const msg = document.getElementById("regMsg");
+  const codeInput = document.getElementById("code");
+  const dinnerInputs = form.querySelectorAll('input[name="dinner"]');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const el = document.getElementById("lastUpdated");
+  let step = 1;
+
+  if(el){
+    const d = new Date(document.lastModified);
+    const pad = n => String(n).padStart(2,"0");
+
+    if(!Number.isNaN(d.getTime())){
+      el.textContent =
+        `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()} ` +
+        `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+  }  
+
+  form.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+
+    const email = form.email.value.trim();
+    msg.textContent = "invio…";
+
+    try {
+
+      if (step === 1) {
+
+        const r = await fetch("/api/pre-register",{
+          method:"POST",
+          headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({ email })
+        });
+
+        const data = await r.json().catch(()=>({status:"weird"}));
+
+        if (r.ok && data.status === "ok") {
+
+          msg.textContent = "Codice inviato. Controlla la mail.";
+
+          step = 2;
+          codeInput.style.display = "block";
+          codeInput.focus();
+          submitBtn.textContent = "conferma registrazione";
+
+        } else {
+          msg.textContent = "Errore.";
+        }
+
+        return;
+      }
+
+      const code = codeInput.value.trim();
+      const dinner = form.dinner.value;
+
+      const r = await fetch("/api/register",{
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({ email, code, dinner })
+      });
+
+      const data = await r.json().catch(()=>({status:"weird"}));
+
+      if (r.ok && data.status === "ok") {
+        msg.textContent = "Registrazione confermata.";
+		setTimeout(()=>{
+		  document.querySelector(".foot")?.scrollIntoView({
+			behavior: "smooth",
+			block: "start"
+		  });
+		},700);
+      } else {
+        msg.textContent = "Errore.";
+      }
+
+    } catch {
+      msg.textContent = "Offline.";
+    }
+  });
+
+});
+</script>
+</body>
+</html>

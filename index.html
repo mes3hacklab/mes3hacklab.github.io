@@ -1,87 +1,492 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050709">
+  <title>mes3hacklab</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="js/parser.js"></script>
+  <style>
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>mes3hacklab.org</title>
-        <meta name="description" content="mes3hacklab.org">
-        <link rel="stylesheet" href="./css/bootstrap.css">
-        <link rel="stylesheet" href="./css/mystyle.css">
-        <script src="./js/jquery.js"></script>
-        <script src="./js/bootstrap.min.js"></script>
-    </head>
-    <body>
-        
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-          <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="index.html">mes3hacklab</a>
-            </div>
+  </style>
+</head>
+<body x-data="terminalSite()" x-init="init()">
+  <div class="boot-screen" :class="{ 'is-hidden': bootDone }">
+    <img class="boot-logo" src="img/logo-diamond.png" alt="mes3hacklab">
+  </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="index.html">Home</a></li>
-                  <li><a href="media/esc.html">Media</a></li>
-                  <li><a href="events.html">Events</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a href="thedorksideofgoogle.html">The DorkSide of Google</a></li>
-                    <li class="divider"></li>
-                    <li><a href="onionmail.html">Onion Mail</a></li>
-                    <li class="divider"></li>
-                    <li><a href="thescriptkiddieshandbook.html">The ScriptKiddies Handbook</a></li>
-                    <li class="divider"></li>
-                    <li><a href="yodo.html">yodo</a></li>
-                    <li class="divider"></li>
-                    <li><a href="./pa/pa.html">Osservatorio sulla sicurezza del Web nella PA Italiana</a></li>
-                  </ul>
-                </li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="contacts.html">Contacts</a></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="en/index.html">EN</a></li>
-              </ul>
-            </div><!-- /.navbar-collapse -->
-          </div><!-- /.container-fluid -->
-        </nav>
-        
-        <div class="container">
-                    <div class="jumbotron welcome">
-                      <br><br><br><br><br>
-                      <h1>Benvenuto!</h1>
-                      <p>mes3hacklab è uno spazio di aggregazione, un laboratorio dedicato all'informatica di frontiera, alla tecnologia e alla scienza, libero da qualsiasi logica commerciale e di profitto.</p>
-                      <p><a class="btn btn-primary btn-lg" role="button" href="contacts.html">Contatti</a></p>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12 col-md-6">
-                          <h3>All'interno:</h3> 
-                          <p>Giovani appassionati possono entrare in contatto gli uni con gli altri attraverso i nostri incontri. Per raggiungere questo obbiettivo teniamo degli incontri aperti a tutti in cui discutere sia del lato tecnico che di quello più astratto dell'informatica.</p>
-                      </div>
-                      <div class="col-xs-12 col-md-6">
-                          <h3>Ciò che ci lega è la convinzione che:</h3>
-                          <ul>
-                              <li>L'accesso all'informazione debba essere libero e facilmente attuabile tramite l'uso di sistemi aperti e non vincolato alle decisioni di pochi.</li>
-                              <li>Che l'utente sia consapevole di ciò che sta usando.</li>
-                              <li>Che il modo migliore di imparare sia scambiarsi idee e conoscenze, senza strutture gerarchiche ed in perfetto stile p2p.</li>
-                         </ul>
-                      </div>
-                    </div>
-            
+  <div class="page">
+    <main class="terminal" aria-label="Interactive terminal website">
+      <header class="term-head">
+        <div class="term-left">
+          <div class="dots">
+            <i :style="`background:${hasUpcomingEvent ? 'var(--accent)' : 'var(--warn)'}`"></i>
+          </div>
+          <div class="brand" x-text="brandLabel"></div>
         </div>
-        
-        
-    </body>
+        <div class="head-meta">
+          <button class="head-btn" @click="goBack()" x-show="canGoBack()">..</button>
+        </div>
+      </header>
+
+      <section class="term-body">
+        <div class="viewport" x-ref="viewport">
+          <div class="screen-wrap">
+            <div class="line prompt"><span x-text="host()"></span><span x-text="typedCommand"></span><span class="cursor" >▋</span></div>
+            <div class="divider"></div>
+
+            <template x-if="screen === 'list'">
+              <div class="listing">
+                <template x-for="(item, index) in currentNodes" :key="item.id + '-' + currentPath">
+                  <button class="command-btn" @click="openNode(item)">
+                    <span class="idx" x-text="String(index + 1).padStart(2, '0')"></span>
+                    <span class="command-main">
+                      <span class="cmd-name" x-text="item.label"></span>
+                      <span class="command-sub" x-text="item.sub || nodeHint(item)"></span>
+                    </span>
+                    <span class="arrow">↗</span>
+                  </button>
+                </template>
+              </div>
+            </template>
+
+            <template x-if="screen === 'subpage'">
+              <div class="subpage-block">
+                <div class="subpage-header" x-text="subpageHeader"></div>
+                <div class="subpage-content markdown-body" x-html="subpageHtml"></div>
+
+                <template x-if="subpageAssets.length">
+                  <div class="asset-list">
+                    <template x-for="asset in subpageAssets" :key="asset.label">
+                      <a class="asset-link" :href="asset.href" target="_blank" rel="noopener noreferrer">
+                        <span class="arrow">↗</span>
+                        <span x-text="asset.label"></span>
+                      </a>
+                    </template>
+                  </div>
+                </template>
+              </div>
+            </template>
+
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+<script>
+  function terminalSite() {
+    return {
+      screen: 'list',
+      typedCommand: '',
+      subpageHeader: '',
+      subpageBody: '',
+      subpageHtml: '',
+      subpageAssets: [],
+      currentNodes: [],
+      cursorVisible: true,
+      typingTimer: null,
+      cursorTimer: null,
+      currentPath: '',
+      bootDone: false,
+      history: [],
+      brandLabel: 'nessun evento in programma',
+      hasUpcomingEvent: false,
+
+      parentPath(path) {
+        const parts = path.split('/');
+        parts.pop();
+        const out = parts.join('/');
+        return out || '';
+      },
+
+      joinPath(base, name) {
+        const cleanBase = (base || '').replace(/\/+$/, '');
+        const cleanName = (name || '').replace(/^\/+/, '');
+        if (!cleanBase) return cleanName;
+        return `${cleanBase}/${cleanName}`;
+      },
+
+      commandPath(itemPath) {
+        return itemPath.replace(/^\/+/, '');
+      },
+
+      parseCalendarLine(line) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#')) return null;
+
+        const parts = trimmed
+          .split('|')
+          .map(part => part.trim())
+          .filter(Boolean);
+
+        if (parts.length < 4) return null;
+
+        const [dateStr, title, timeStr, location] = parts;
+
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return null;
+        if (!/^\d{2}:\d{2}$/.test(timeStr)) return null;
+
+        const eventDate = new Date(`${dateStr}T${timeStr}:00`);
+        if (Number.isNaN(eventDate.getTime())) return null;
+
+        return {
+          dateStr,
+          title,
+          timeStr,
+          location,
+          date: eventDate
+        };
+      },
+
+      formatBrandEvent(event) {
+        const months = ['gen', 'feb', 'mar', 'apr', 'mag', 'giu', 'lug', 'ago', 'set', 'ott', 'nov', 'dic'];
+        const day = String(event.date.getDate()).padStart(2, '0');
+        const month = months[event.date.getMonth()];
+        return `${day} ${month} ${event.timeStr} / ${event.title}`;
+      },
+
+      async loadNextEventBrand() {
+        try {
+          const raw = await this.fetchText('content/events/calendar.md');
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          const events = raw
+            .split('\n')
+            .map(line => this.parseCalendarLine(line))
+            .filter(Boolean)
+            .filter(event => {
+              const eventDay = new Date(event.date);
+              eventDay.setHours(0, 0, 0, 0);
+              return eventDay >= today;
+            })
+            .sort((a, b) => a.date - b.date);
+
+          if (!events.length) {
+            this.brandLabel = 'nessun evento in programma';
+            this.hasUpcomingEvent = false;
+            return;
+          }
+
+          this.brandLabel = this.formatBrandEvent(events[0]);
+          this.hasUpcomingEvent = true;
+        } catch (err) {
+          console.error('nessun evento in programma', err);
+          this.brandLabel = 'mes3hacklab';
+        }
+      },
+
+      tree: {
+        root: [
+          { id: 'events', label: 'events/', type: 'dir', path: '/events' },
+          { id: 'projects', label: 'projects/', type: 'dir', path: '/projects' },
+          { id: 'media', label: 'media/', type: 'dir', path: '/media' },
+          { id: 'contacts', label: 'contacts/', type: 'dir', path: '/contacts' }
+        ],
+
+        '/events': [
+          {
+            id: 'CALENDAR',
+            label: 'CALENDAR.md',
+            type: 'file',
+            src: 'content/events/calendar.md',
+            path: '/events/calendar.md'
+          },
+          {
+            id: 'micro-conference-2026',
+            label: 'micro-conference-2026.md',
+            type: 'file',
+            src: 'content/events/micro-conference-2026.md',
+            path: '/events/micro-conference-2026.md'
+          },
+          {
+            id: 'aperitivo-mes3hacklab-2025',
+            label: 'aperitivo-mes3hacklab-2025.md',
+            type: 'file',
+            src: 'content/events/aperitivo-mes3hacklab-2025.md',
+            path: '/events/aperitivo-mes3hacklab-2025.md'
+          },
+          {
+            id: 'ESC2K13',
+            label: 'ESC2K13.md',
+            type: 'file',
+            src: 'content/events/ESC2K13.md',
+            path: '/events/ESC2K13.md'
+          }
+        ],
+
+        '/projects': [
+          {
+            id: 'pa-italiana',
+            label: 'pa-italiana.md',
+            type: 'file',
+            src: 'content/projects/pa-italiana.md',
+            path: '/projects/pa-italiana.md'
+          },
+          {
+            id: 'yodo',
+            label: 'yodo.md',
+            type: 'file',
+            src: 'content/projects/yodo.md',
+            path: '/projects/yodo.md'
+          },
+          {
+            id: 'onionmail',
+            label: 'onionmail.lnk',
+            type: 'lnk',
+            href: 'https://onionmail.info/',
+            sub: 'https://onionmail.info'
+          },
+          {
+            id: 'the dorkside of google',
+            label: 'the-dorkside-of-google.md',
+            type: 'file',
+            src: 'content/projects/the-dorkside-of-google.md',
+            path: '/projects/the-dorkside-of-google.md'
+          },
+          {
+            id: 'malavoria TTRPG',
+            label: 'malavoria-ttrpg.md',
+            type: 'file',
+            src: 'content/projects/malavoria-ttrpg.md',
+            path: '/projects/malavoria-ttrpg.md'
+          }
+        ],
+
+        '/contacts': [
+          {
+            id: 'mail',
+            label: 'mail.lnk',
+            type: 'lnk',
+            href: 'mailto:info@mes3hacklab.org',
+            sub: 'info@mes3hacklab.org'
+          },
+          {
+            id: 'instagram',
+            label: 'instagram.lnk',
+            type: 'lnk',
+            href: 'https://instagram.com/mes3hacklab',
+            sub: '@mes3hacklab'
+          },
+          {
+            id: 'telegram',
+            label: 'telegram.lnk',
+            type: 'action',
+            action: 'telegram',
+            sub: 't.me/mes3hacklab'
+          },
+          {
+            id: 'crew',
+            label: 'crew.md',
+            type: 'file',
+            src: 'content/contacts/crew.md',
+            path: '/contacts/crew.md'
+          },
+        ],
+
+        '/media': [
+          {
+            id: 'kawaii-photo-dump',
+            label: 'kawaii-photo-dump.md',
+            type: 'file',
+            src: 'content/media/kawaii-photo-dump.md',
+            path: '/media/kawaii-photo-dump.md'
+          }
+        ]
+      },
+
+      init() {
+        window.history.replaceState({ internal: true, depth: 0 }, '');
+
+        window.addEventListener('popstate', (event) => {
+          if (event.state && event.state.internal && this.history.length > 0) {
+            this.goBack(true);
+          }
+        });
+
+        this.loadNextEventBrand();
+
+        setTimeout(() => {
+          this.bootDone = true;
+          this.runCommand('ls', () => {
+            this.openDirectory('');
+            this.history = [];
+          });
+        }, 2000);
+
+        this.cursorTimer = setInterval(() => {
+          this.cursorVisible = !this.cursorVisible;
+        }, 520);
+      },
+
+      host() {
+        return 'root@mes3hacklab:/home/mhl/# ';
+      },
+
+      canGoBack() {
+        return this.history.length > 0;
+      },
+
+      nodeHint(item) {
+        if (item.type === 'dir') return 'directory';
+        if (item.type === 'file') return 'file';
+        if (item.type === 'lnk') return 'external link';
+        if (item.type === 'action') return 'action';
+        return '';
+      },
+
+      snapshot() {
+        return {
+          screen: this.screen,
+          currentPath: this.currentPath,
+          currentNodes: [...this.currentNodes],
+          subpageHeader: this.subpageHeader,
+          subpageBody: this.subpageBody,
+          subpageHtml: this.subpageHtml,
+          subpageAssets: [...this.subpageAssets]
+        };
+      },
+
+      pushHistory() {
+        this.history.push(this.snapshot());
+        window.history.pushState(
+          { internal: true, depth: this.history.length },
+          ''
+        );
+      },
+
+      goBack(fromPopState = false) {
+        const prev = this.history.pop();
+        if (!prev) return;
+
+        this.screen = prev.screen;
+        this.currentPath = prev.currentPath;
+        this.currentNodes = [...prev.currentNodes];
+        this.subpageHeader = prev.subpageHeader;
+        this.subpageBody = prev.subpageBody;
+        this.subpageHtml = prev.subpageHtml;
+        this.subpageAssets = [...prev.subpageAssets];
+        this.typedCommand = '';
+
+        this.$nextTick(() => {
+          if (this.$refs.viewport) this.$refs.viewport.scrollTop = 0;
+        });
+
+        if (!fromPopState) {
+          window.history.back();
+        }
+      },
+
+      openDirectory(path) {
+        this.screen = 'list';
+        this.currentPath = path;
+        this.currentNodes = this.tree[path || 'root'] || [];
+        this.subpageHeader = '';
+        this.subpageBody = '';
+        this.subpageHtml = '';
+        this.subpageAssets = [];
+      },
+
+      clearOutput() {
+        this.screen = '';
+        this.subpageHeader = '';
+        this.subpageBody = '';
+        this.subpageHtml = '';
+        this.subpageAssets = [];
+      },
+
+      runCommand(text, callback) {
+        clearInterval(this.typingTimer);
+        this.clearOutput();
+        this.typedCommand = '';
+        let i = 0;
+
+        this.typingTimer = setInterval(() => {
+          this.typedCommand = text.slice(0, i + 1);
+          i++;
+          if (i >= text.length) {
+            clearInterval(this.typingTimer);
+            setTimeout(() => {
+              callback();
+              this.$nextTick(() => {
+                if (this.$refs.viewport) this.$refs.viewport.scrollTop = 0;
+              });
+            }, 90);
+          }
+        }, 18);
+      },
+
+      showMenu() {
+        this.runCommand('ls', () => {
+          this.openDirectory('');
+          this.history = [];
+        });
+      },
+
+      async fetchText(src) {
+        const res = await fetch(src);
+        if (!res.ok) throw new Error(`Failed to load ${src}`);
+        return await res.text();
+      },
+
+      async openNode(item) {
+        this.pushHistory();
+
+        if (item.type === 'dir') {
+          this.runCommand(`ls ${this.commandPath(item.path)}/`, () => {
+            this.openDirectory(item.path);
+          });
+          return;
+        }
+
+        if (item.type === 'file') {
+          this.runCommand(`cat ${this.commandPath(item.path)}`, async () => {
+            try {
+              const body = await this.fetchText(item.src);
+              this.screen = 'subpage';
+              this.currentPath = this.parentPath(item.path);
+              this.currentNodes = [];
+              this.subpageHeader = item.label;
+              this.subpageBody = body;
+              this.subpageHtml = window.renderTerminalMarkdown(body, item.src);
+              this.subpageAssets = [];
+            } catch (err) {
+              this.screen = 'subpage';
+              this.currentPath = this.parentPath(item.path);
+              this.currentNodes = [];
+              this.subpageHeader = 'error.log';
+              this.subpageBody = `failed to load ${item.src}`;
+              this.subpageHtml = `<p>failed to load ${item.src}</p>`;
+              this.subpageAssets = [];
+            }
+          });
+          return;
+        }
+
+        if (item.type === 'lnk') {
+          this.history.pop();
+          window.history.back();
+          window.open(item.href, '_blank', 'noopener,noreferrer');
+          return;
+        }
+
+        if (item.type === 'action' && item.action === 'telegram') {
+          this.runCommand('curl t.me/mes3hacklab', () => {
+            this.screen = 'subpage';
+            this.currentPath = '/contacts';
+            this.currentNodes = [];
+            this.subpageHeader = 'telegram.lnk';
+            this.subpageBody = '';
+            this.subpageHtml = '<p>403. Try asking.</p>';
+            this.subpageAssets = [];
+          });
+        }
+      }
+    }
+  }
+</script>
+</body>
 </html>
