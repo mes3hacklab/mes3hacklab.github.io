@@ -569,7 +569,7 @@
         const res = await fetch(url, { cache: 'no-store' });
         if (!res.ok) throw new Error(`Failed to load ${src}`);
         return await res.text();
-      }
+      },
 
       async openNode(item) {
         this.pushHistory();
