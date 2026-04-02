@@ -1,0 +1,21 @@
+{
+  "name": "mes3hacklab",
+  "short_name": "mes3hacklab",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#050709",
+  "theme_color": "#050709",
+  "icons": [
+    {
+      "src": "/img/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

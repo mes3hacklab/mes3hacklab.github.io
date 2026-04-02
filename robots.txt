@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mes3hacklab.org/sitemap.xml
