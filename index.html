@@ -565,10 +565,11 @@
       },
 
       async fetchText(src) {
-        const res = await fetch(src);
+        const url = `${src}?t=${Date.now()}`;
+        const res = await fetch(url, { cache: 'no-store' });
         if (!res.ok) throw new Error(`Failed to load ${src}`);
         return await res.text();
-      },
+      }
 
       async openNode(item) {
         this.pushHistory();
