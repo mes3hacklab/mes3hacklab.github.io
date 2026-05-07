@@ -611,9 +611,9 @@ Saving to: ‘${filename}.ics’\n`;
       },
 
       eventSafeName(event) {
-        return `${event.dateStr}-${event.title}`
+        return `${event.dateStr}-${event.startStr}_${event.endStr}-${event.title}`
           .toLowerCase()
-          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/[^a-z0-9:_]+/g, '-')
           .replace(/^-+|-+$/g, '');
       },
 
