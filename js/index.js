@@ -325,7 +325,7 @@ function terminalSite() {
               .split('\n')
               .map(line => this.parseCalendarLine(line))
               .filter(Boolean)
-              .sort((a, b) => a.startDate - b.startDate)
+              .sort((a, b) => b.startDate - a.startDate)
               .forEach(item => {
                 const safeName = this.eventSafeName(item);
 
@@ -619,6 +619,16 @@ Saving to: ‘${filename}.ics’\n`;
 
       getTimestamp() {
         return new Date().toISOString().replace('T', ' ').replace(/\.\d{3}Z/, '');
+      },
+
+      async isNextEvent(item) {
+        if(item.type !== 'download') return 'cmd-name';
+
+        const eventDate = new Date(item.label.match(/^\d{4}-\d{2}-\d{2}/)[0]);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        return eventDate >= today ? 'upcoming-event' : 'passed-event';
       },
     }
   }

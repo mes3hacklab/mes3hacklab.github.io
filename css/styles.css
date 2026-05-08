@@ -755,3 +755,12 @@ hr {
     transition: none !important;
   }
 }
+
+.upcoming-event {
+  color: var(--accent);
+}
+
+.passed-event {
+  color: var(--muted);
+}
+
