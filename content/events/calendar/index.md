@@ -5,4 +5,5 @@
 |2026-04-03 | ritrovo-hacklab | 19:15 | 23:15 | TUTTINPIEDI - Piazza a.Canova, 1, 30173 Venezia VE |
 |2026-04-17 | ritrovo-hacklab | 19:30 | 23:30 | TUTTINPIEDI - Piazza a.Canova, 1, 30173 Venezia VE |
 |2026-05-08 | ritrovo-hacklab | 21:00 | 23:30 | TUTTINPIEDI - Piazza a.Canova, 1, 30173 Venezia VE |
+|2026-05-22 | ritrovo-hacklab | 19:30 | 23:30 | TUTTINPIEDI - Piazza a.Canova, 1, 30173 Venezia VE |
 
