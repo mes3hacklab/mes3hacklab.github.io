@@ -101,7 +101,7 @@
                   >
                     <span class="idx" x-text="String(index + 1).padStart(2, '0')"></span>
                     <span class="command-main">
-                      <span class="cmd-name" x-text="item.label"></span>
+                      <span :class="isNextEvent(item)" x-text="item.label"></span>
                       <span class="command-sub" x-text="item.sub || nodeHint(item)"></span>
                     </span>
                     <span class="arrow">↗</span>
