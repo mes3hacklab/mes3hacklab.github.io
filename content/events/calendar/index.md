@@ -7,4 +7,4 @@
 |2026-05-08 | ritrovo-hacklab | 21:00 | 23:30 | TUTTINPIEDI - Piazza a.Canova, 2, 30173 Venezia VE |
 |2026-05-22 | ritrovo-hacklab | 19:30 | 23:30 | TUTTINPIEDI - Piazza a.Canova, 2, 30173 Venezia VE |
 |2026-06-05 | micro-talk-stampa3d | 20:30 | 23:30 | TUTTINPIEDI - Piazza a.Canova, 2, 30173 Venezia VE |
-
+|2026-06-05 | ritrovo-hacklab | 19:30 | 23:30 | TUTTINPIEDI - Piazza a.Canova, 2, 30173 Venezia VE |
